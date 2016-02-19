@@ -3,7 +3,7 @@ var load = require('../load'),
 
 describe('azure-mobile-apps.compatibility.table.load', function () {
     it("loads mobile services table definitions", function () {
-        var tables = load(__dirname + '/files')
+        var tables = load(__dirname + '/files/table')
         expect(tables).to.containSubset({
             friends: {
                 operations: {},

@@ -1,4 +1,4 @@
-var files = require('../generateFiles')('table', __dirname + '/files'),
+var files = require('../generateFiles')('table', __dirname + '/files/table'),
     expect = require('chai').use(require('chai-subset')).expect
 
 describe('azure-mobile-apps.compatibility.integration', function () {

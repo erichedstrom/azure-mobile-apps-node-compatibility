@@ -4,12 +4,7 @@ var api = require('./api'),
 
 module.exports = {
     wrap: wrap,
-    addMobileServiceTo: function (mobileApp) {
-        return {
-            from: function (path) {
-                table(mobileApp, path)
-                api(mobileApp, path)
-            }
-        }
+    scaffold: function (path, outputPath) {
+        
     }
 }
