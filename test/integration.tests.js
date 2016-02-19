@@ -1,7 +1,7 @@
-var files = require('../../table')(__dirname + '/../files'),
+var files = require('../generateFiles')('table', __dirname + '/files'),
     expect = require('chai').use(require('chai-subset')).expect
 
-describe('azure-mobile-apps.compatibility.table', function () {
+describe('azure-mobile-apps.compatibility.integration', function () {
     it("creates appropriate files", function () {
         expect(Object.keys(files)).to.deep.equal([
             'friends.json',
