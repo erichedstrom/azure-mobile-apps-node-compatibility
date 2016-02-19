@@ -1,9 +1,6 @@
 var load = require('../load'),
     mapPermissions = require('../mapPermissions'),
-    fs = require('fs'),
-    _ = require('underscore'),
-
-    template = fs.readFileSync(__dirname + '/template.js', 'utf8')
+    templates = require('../templates')
 
 module.exports = function (path) {
     var tables = load(path)
@@ -12,7 +9,7 @@ module.exports = function (path) {
         var table = tables[tableName]
 
         files[tableName + '.json'] = JSON.stringify(mapPermissions(table.permissions))
-        files[tableName + '.js'] = _.template(template)(table)
+        files[tableName + '.js'] = templates('table', table)
 
         return files;
     }, {})
