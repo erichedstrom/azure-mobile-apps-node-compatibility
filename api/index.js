@@ -23,4 +23,22 @@ module.exports = function (path) {
         }
     }
 }
+
+{
+  "get": {
+    "access": "anonymous"
+  },
+  "post": {
+    "access": "authenticated"
+  },
+  "put": {
+    "access": "disabled"
+  },
+  "patch": {
+    "access": "anonymous"
+  },
+  "delete": {
+    "access": "anonymous"
+  }
+}
 */

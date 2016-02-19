@@ -1,5 +1,5 @@
-module.exports = function (source) {
-    var permissions = source.routes['/'],
+module.exports = function (source, route) {
+    var permissions = source.routes[route || '/'],
         mapping = {
             "public": "anonymous",
             "application": "anonymous",
@@ -9,7 +9,7 @@ module.exports = function (source) {
 
     return Object.keys(permissions).reduce(function (target, operationName) {
         target[operationName] = { access: mapping[permissions[operationName].permission] }
-        if(operationName === 'insert')
+        if(operationName === 'insert' && !route)
             target.undelete = { access: mapping[permissions.insert.permission] }
         return target;
     }, { autoIncrement: false })
