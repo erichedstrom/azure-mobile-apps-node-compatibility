@@ -1,3 +1,3 @@
 module.exports = function (context) {
-    return context.req
+    return context.query
 }

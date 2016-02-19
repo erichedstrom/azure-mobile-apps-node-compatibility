@@ -1,1 +1,1 @@
-function read(query, user, request) {}
+function read(query, user, request) { /*read*/ }

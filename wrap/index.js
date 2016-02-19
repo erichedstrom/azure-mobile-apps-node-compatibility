@@ -2,9 +2,11 @@ var request = require('./request'),
     user = require('./user')
 
 module.exports = {
-    read: function (handler) {
+    read: function (generatedHandler) {
         return function (context) {
-            handler(context.query, user(context.user), request(context.request))
+            return basicWrapper(context, generatedHandler, function (userHandler) {
+                return userHandler(context.query, user(context), request(context))
+            })
         }
     },
     insert: function (handler) {
@@ -18,8 +20,10 @@ module.exports = {
     }
 }
 
-function createRequestWrapper(context, handler) {
-    
+function basicWrapper(context, generatedHandler, innerHandler) {
+    // generated handlers all have the signature (tables, push, request, response, user) and will return an instance of the user defined handler
+    var userHandler = generatedHandler(context.tables, context.push, context.req, context.res, context.user)
+    return innerHandler(userHandler)
 }
 
 /*

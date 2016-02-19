@@ -1,1 +1,1 @@
-function insert(item, user, request) {}
+function insert(item, user, request) { /*insert*/ }

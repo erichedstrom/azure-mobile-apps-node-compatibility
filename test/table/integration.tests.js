@@ -12,8 +12,10 @@ describe('azure-mobile-apps.compatibility.table', function () {
     })
 
     it("applies template to each table", function () {
-        expect(files['friends.js'].indexOf("('azure-mobile-apps').table()")).to.not.equal(-1);
-        expect(files['messages.js'].indexOf('wrap.read(function read')).to.not.equal(-1);
-        expect(files['messages.js'].indexOf('wrap.insert(function insert')).to.not.equal(-1);
+        expect(files['friends.js']).to.contain("('azure-mobile-apps').table()");
+        expect(files['messages.js']).to.contain('wrap.read(function ');
+        expect(files['messages.js']).to.contain('wrap.insert(function ');
+        expect(files['messages.js']).to.contain('/*insert*/');
+        expect(files['messages.js']).to.contain('/*read*/');
     })
 })
