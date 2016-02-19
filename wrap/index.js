@@ -1,11 +1,13 @@
-var request = require('./request'),
+var query = require('./query'),
+    request = require('./request'),
+    response = require('./response'),
     user = require('./user')
 
 module.exports = {
     read: function (generatedHandler) {
         return function (context) {
             return basicWrapper(context, generatedHandler, function (userHandler) {
-                return userHandler(context.query, user(context), request(context))
+                return userHandler(query(context), user(context), request(context))
             })
         }
     },
