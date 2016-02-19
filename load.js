@@ -4,24 +4,24 @@ var fs = require('fs'),
 module.exports = function(sourcePath) {
     return fs.readdirSync(sourcePath).reduce(function (target, filename) {
         if(fs.statSync(path.join(sourcePath, filename)).isFile())
-            addContentToTables(target, filename, fs.readFileSync(path.join(sourcePath, filename), 'utf8'))
+            addContentToTarget(target, filename, fs.readFileSync(path.join(sourcePath, filename), 'utf8'))
         return target;
     }, {})
 }
 
-function addContentToTables(tables, filename, content) {
+function addContentToTarget(target, filename, content) {
     var parsed = path.parse(filename),
-        tableName = tableName()
+        itemName = itemName()
 
-    if(!tables[tableName])
-        tables[tableName] = { operations: {} }
+    if(!target[itemName])
+        target[itemName] = { operations: {} }
 
     if(parsed.ext === '.json')
-        tables[tableName].permissions = JSON.parse(content)
+        target[itemName].permissions = JSON.parse(content)
     else
-        tables[tableName].operations[operationName()] = content
+        target[itemName].operations[operationName()] = content
 
-    function tableName() {
+    function itemName() {
         var index = parsed.name.indexOf('.')
         return (index === -1 ? parsed.name : parsed.name.substring(0, index)).toLowerCase()
     }
