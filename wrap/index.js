@@ -3,22 +3,43 @@ var query = require('./query'),
     response = require('./response'),
     user = require('./user')
 
+// hmm... could be refactored to remove boilerplate
 module.exports = {
+    //function read(query, user, request)
     read: function (generatedHandler) {
         return function (context) {
-            return basicWrapper(context, generatedHandler, function (userHandler) {
-                return userHandler(query(context), user(context), request(context))
+            basicWrapper(context, generatedHandler, function (userHandler) {
+                userHandler(query(context), user(context), request(context))
             })
+            return context.executePromise
         }
     },
-    insert: function (handler) {
-
+    //function insert(item, user, request)
+    insert: function (generatedHandler) {
+        return function (context) {
+            basicWrapper(context, generatedHandler, function (userHandler) {
+                userHandler(context.item, user(context), request(context))
+            })
+            return context.executePromise
+        }
     },
-    update: function (handler) {
-
+    //function update(item, user, request)
+    update: function (generatedHandler) {
+        return function (context) {
+            basicWrapper(context, generatedHandler, function (userHandler) {
+                userHandler(context.item, user(context), request(context))
+            })
+            return context.executePromise
+        }
     },
-    delete: function (handler) {
-
+    //function del(id, user, request)
+    delete: function (generatedHandler) {
+        return function (context) {
+            basicWrapper(context, generatedHandler, function (userHandler) {
+                userHandler(context.id, user(context), request(context))
+            })
+            return context.executePromise
+        }
     }
 }
 
@@ -27,11 +48,3 @@ function basicWrapper(context, generatedHandler, innerHandler) {
     var userHandler = generatedHandler(context.tables, context.push, context.req, context.res, context.user)
     return innerHandler(userHandler)
 }
-
-/*
-function insert(item, user, request) {
-function update(item, user, request) {
-function del(id, user, request) {
-function read(query, user, request) {
-
-*/
