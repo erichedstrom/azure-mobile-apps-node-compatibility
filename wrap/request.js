@@ -14,8 +14,10 @@ module.exports = function (context) {
     }
 
     request.respond = function() {
-
+        
     }
+
+    request.parameters = req.query
 
     return request
 }

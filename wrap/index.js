@@ -40,11 +40,14 @@ module.exports = {
             })
             return context.executePromise
         }
+    },
+    api: function (definition) {
+        return definition({})
     }
 }
 
 function basicWrapper(context, generatedHandler, innerHandler) {
     // generated handlers all have the signature (tables, push, request, response, user) and will return an instance of the user defined handler
-    var userHandler = generatedHandler(context.tables, context.push, context.req, context.res, context.user)
+    var userHandler = generatedHandler(context.tables, context.push, request(context), response(context), user(context))
     return innerHandler(userHandler)
 }
