@@ -1,4 +1,4 @@
-var files = require('../../table')(__dirname + '/files'),
+var files = require('../../table')(__dirname + '/../files'),
     expect = require('chai').use(require('chai-subset')).expect
 
 describe('azure-mobile-apps.compatibility.table', function () {

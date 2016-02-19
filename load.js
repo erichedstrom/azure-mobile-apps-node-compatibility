@@ -28,6 +28,6 @@ function addContentToTables(tables, filename, content) {
 
     function operationName() {
         var index = parsed.name.indexOf('.')
-        return parsed.name.indexOf('.') > -1 && parsed.name.substring(index + 1)
+        return parsed.name.indexOf('.') > -1 ? parsed.name.substring(index + 1) : 'api'
     }
 }

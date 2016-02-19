@@ -3,7 +3,7 @@ var mapPermissions = require('../mapPermissions'),
 
 describe('azure-mobile-apps.compatibility.mapPermissions', function () {
     it("maps mobile services permissions to mobile apps", function () {
-        var source = require('./table/files/friends.json')
+        var source = require('./files/friends.json')
         expect(mapPermissions(source)).to.deep.equal({
             "autoIncrement": false,
             "read": {

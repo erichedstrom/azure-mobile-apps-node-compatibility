@@ -1,4 +1,4 @@
-var load = require('../../table/load'),
+var load = require('../load'),
     expect = require('chai').use(require('chai-subset')).expect
 
 describe('azure-mobile-apps.compatibility.table.load', function () {

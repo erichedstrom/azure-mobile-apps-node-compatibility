@@ -1,4 +1,4 @@
-var load = require('./load'),
+var load = require('../load'),
     mapPermissions = require('../mapPermissions'),
     fs = require('fs'),
     _ = require('underscore'),
