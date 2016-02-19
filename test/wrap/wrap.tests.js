@@ -34,7 +34,7 @@ describe('azure-mobile-apps.compatibility.wrap', function () {
         expect(wrapped({ req: {} })).to.be.undefined
     })
 
-    it("wrapped function returns promise from context.execute if request.execute is not executed", function () {
+    it("wrapped function returns promise if request.execute is executed", function () {
         var wrapped = wrap.read(function (tables, push, request, response, user) {
             return function read(query, user, request) {
                 request.execute()
