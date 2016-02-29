@@ -1,10 +1,12 @@
 {
   "dependencies": {
+    "mkdirp": "^0.5.1",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-subset": "^1.2.0",
-    "mocha": "^2.4.5"
+    "mocha": "^2.4.5",
+    "rimraf": "^2.5.2"
   }
 }
