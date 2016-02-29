@@ -1,5 +1,6 @@
 module.exports = function (context) {
-    var request = context.req
+    var request = context.req,
+        response = context.res
 
     request.execute = function(options) {
         context.executePromise = context.execute()
@@ -14,7 +15,13 @@ module.exports = function (context) {
     }
 
     request.respond = function() {
+        if(arguments.length === 0)
+            response.status(200).end()
 
+        if(arguments.length === 1)
+            response.status(500).json({ error: arguments[0].message })
+
+        response.status(arguments[0]).send(arguments[1])
     }
 
     request.parameters = request.query

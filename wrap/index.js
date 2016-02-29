@@ -1,7 +1,8 @@
 var query = require('./query'),
     request = require('./request'),
     response = require('./response'),
-    user = require('./user')
+    user = require('./user'),
+    statusCodes = require('./statusCodes')
 
 // hmm... could be refactored to remove boilerplate
 module.exports = {
@@ -47,7 +48,7 @@ module.exports = {
 }
 
 function basicWrapper(context, generatedHandler, innerHandler) {
-    // generated handlers all have the signature (tables, push, request, response, user) and will return an instance of the user defined handler
-    var userHandler = generatedHandler(context.tables, context.push, request(context), response(context), user(context))
+    // generated handlers all have the signature (tables, push, request, response, user, statusCodes) and will return an instance of the user defined handler
+    var userHandler = generatedHandler(context.tables, context.push, request(context), response(context), user(context), statusCodes)
     return innerHandler(userHandler)
 }
