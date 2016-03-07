@@ -1,7 +1,7 @@
 var load = require('../load'),
     expect = require('chai').use(require('chai-subset')).expect
 
-describe('azure-mobile-apps.compatibility.table.load', function () {
+describe('azure-mobile-apps.compatibility.load', function () {
     it("loads mobile services table definitions", function () {
         var tables = load(__dirname + '/files/table')
         expect(tables).to.containSubset({

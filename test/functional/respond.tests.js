@@ -2,14 +2,13 @@ var express = require('express'),
     mobileApps = require('azure-mobile-apps'),
     supertest = require('supertest-as-promised')
 
-describe('azure-mobile-apps.compatibility.functional', function () {
+describe('azure-mobile-apps.compatibility.functional.respond', function () {
     var app, mobileApp
 
     before(function () {
         app = express()
         mobileApp = mobileApps({ skipVersionCheck: true, debug: true })
         mobileApp.tables.import(__dirname + '/tables')
-        mobileApp.api.import(__dirname + '/api')
         app.use(mobileApp)
     })
 

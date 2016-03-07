@@ -5,12 +5,15 @@ module.exports = function (context) {
     request.execute = function(options) {
         context.executePromise = context.execute()
             .then(function (results) {
-                if(options.success)
+                if(options && options.success)
                     options.success(results)
+                return results
             })
             .catch(function (error) {
-                if(options.error)
+                if(options && options.error)
                     options.error(error)
+                else
+                    throw error
             })
     }
 
