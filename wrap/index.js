@@ -1,4 +1,5 @@
 var query = require('./query'),
+    apiRequest = require('./request.api'),
     tableRequest = require('./request.table'),
     user = require('./user'),
     statusCodes = require('./statusCodes')
@@ -35,7 +36,7 @@ function apiWrapper(generatedHandler) {
 
     return Object.keys(methods).reduce(function (definition, method) {
         definition[method] = function (req, res, next) {
-            methods[method](req.azureMobile.req, req.azureMobile.res)
+            methods[method](apiRequest(req.azureMobile), req.azureMobile.res)
         }
         return definition
     }, {})

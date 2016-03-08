@@ -34,7 +34,13 @@ describe('azure-mobile-apps.compatibility.functional.respond', function () {
     })
 
     describe('api', function () {
-        it("responds with response.send", function () {
+        it("responds with request.respond", function () {
+            return supertest(app)
+                .get('/api/respond')
+                .expect(203)
+        })
+
+        it("responds with res.send", function () {
             return supertest(app)
                 .post('/api/respond')
                 .expect(202)
