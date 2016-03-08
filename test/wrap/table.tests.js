@@ -1,7 +1,7 @@
 var wrap = require('../../wrap'),
     expect = require('chai').use(require('chai-subset')).expect
 
-describe('azure-mobile-apps.compatibility.wrap', function () {
+describe('azure-mobile-apps.compatibility.wrap.table', function () {
     it("read returns mobile app compatible function", function () {
         var innerExecuted = false,
             context = {

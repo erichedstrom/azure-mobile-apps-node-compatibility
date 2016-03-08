@@ -4,51 +4,40 @@ var query = require('./query'),
     user = require('./user'),
     statusCodes = require('./statusCodes')
 
-// hmm... could be refactored to remove boilerplate
 module.exports = {
-    //function read(query, user, request)
-    read: function (generatedHandler) {
+    read: tableWrapper(function (context) {
+        return [query(context), user(context), request(context)]
+    }),
+    insert: tableWrapper(function (context) {
+        return [context.item, user(context), request(context)]
+    }),
+    update: tableWrapper(function (context) {
+        return [context.item, user(context), request(context)]
+    }),
+    delete: tableWrapper(function (context) {
+        return [context.id, user(context), request(context)]
+    }),
+    api: apiWrapper
+}
+
+function tableWrapper(argumentFactory) {
+    return function (generatedHandler) {
         return function (context) {
-            basicWrapper(context, generatedHandler, function (userHandler) {
-                userHandler(query(context), user(context), request(context))
-            })
+            var userHandler = generatedHandler(context.tables, context.push, request(context), response(context), user(context), statusCodes)
+            userHandler.apply(null, argumentFactory(context))
             return context.executePromise
         }
-    },
-    //function insert(item, user, request)
-    insert: function (generatedHandler) {
-        return function (context) {
-            basicWrapper(context, generatedHandler, function (userHandler) {
-                userHandler(context.item, user(context), request(context))
-            })
-            return context.executePromise
-        }
-    },
-    //function update(item, user, request)
-    update: function (generatedHandler) {
-        return function (context) {
-            basicWrapper(context, generatedHandler, function (userHandler) {
-                userHandler(context.item, user(context), request(context))
-            })
-            return context.executePromise
-        }
-    },
-    //function del(id, user, request)
-    delete: function (generatedHandler) {
-        return function (context) {
-            basicWrapper(context, generatedHandler, function (userHandler) {
-                userHandler(context.id, user(context), request(context))
-            })
-            return context.executePromise
-        }
-    },
-    api: function (definition) {
-        return definition({})
     }
 }
 
-function basicWrapper(context, generatedHandler, innerHandler) {
-    // generated handlers all have the signature (tables, push, request, response, user, statusCodes) and will return an instance of the user defined handler
-    var userHandler = generatedHandler(context.tables, context.push, request(context), response(context), user(context), statusCodes)
-    return innerHandler(userHandler)
+function apiWrapper(generatedHandler) {
+    var methods = {}
+    generatedHandler(methods, statusCodes)
+
+    return Object.keys(methods).reduce(function (definition, method) {
+        definition[method] = function (req, res, next) {
+            methods[method](request(req.azureMobile), response(req.azureMobile))
+        }
+        return definition
+    }, {})
 }
