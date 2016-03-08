@@ -12,13 +12,12 @@ describe('azure-mobile-apps.compatibility.wrap.table', function () {
                 user: {},
                 query: {}
             },
-            wrapped = wrap.read(function (tables, push, request, response, user) {
+            wrapped = wrap.read(function (tables, push, request, user) {
                 return function read(query, user, request) {
                     innerExecuted = true;
                     expect(tables).to.equal(context.tables)
                     expect(push).to.equal(context.push)
                     expect(request).to.equal(context.req)
-                    expect(response).to.equal(context.res)
                     expect(user).to.equal(context.user)
                     expect(query).to.equal(context.query)
                 }
@@ -28,14 +27,14 @@ describe('azure-mobile-apps.compatibility.wrap.table', function () {
     })
 
     it("wrapped function returns undefined if request.execute is not executed", function () {
-        var wrapped = wrap.read(function (tables, push, request, response, user) {
+        var wrapped = wrap.read(function (tables, push, request, user) {
             return function read(query, user, request) { }
         })
         expect(wrapped({ req: {} })).to.be.undefined
     })
 
     it("wrapped function returns promise if request.execute is executed", function () {
-        var wrapped = wrap.read(function (tables, push, request, response, user) {
+        var wrapped = wrap.read(function (tables, push, request, user) {
             return function read(query, user, request) {
                 request.execute()
             }

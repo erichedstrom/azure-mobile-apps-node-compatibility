@@ -1,21 +1,20 @@
 var query = require('./query'),
-    request = require('./request'),
-    response = require('./response'),
+    tableRequest = require('./request.table'),
     user = require('./user'),
     statusCodes = require('./statusCodes')
 
 module.exports = {
     read: tableWrapper(function (context) {
-        return [query(context), user(context), request(context)]
+        return [query(context), user(context), tableRequest(context)]
     }),
     insert: tableWrapper(function (context) {
-        return [context.item, user(context), request(context)]
+        return [context.item, user(context), tableRequest(context)]
     }),
     update: tableWrapper(function (context) {
-        return [context.item, user(context), request(context)]
+        return [context.item, user(context), tableRequest(context)]
     }),
     delete: tableWrapper(function (context) {
-        return [context.id, user(context), request(context)]
+        return [context.id, user(context), tableRequest(context)]
     }),
     api: apiWrapper
 }
@@ -23,7 +22,7 @@ module.exports = {
 function tableWrapper(argumentFactory) {
     return function (generatedHandler) {
         return function (context) {
-            var userHandler = generatedHandler(context.tables, context.push, request(context), response(context), user(context), statusCodes)
+            var userHandler = generatedHandler(context.tables, context.push, tableRequest(context), user(context), statusCodes)
             userHandler.apply(null, argumentFactory(context))
             return context.executePromise
         }
@@ -36,7 +35,7 @@ function apiWrapper(generatedHandler) {
 
     return Object.keys(methods).reduce(function (definition, method) {
         definition[method] = function (req, res, next) {
-            methods[method](request(req.azureMobile), response(req.azureMobile))
+            methods[method](req.azureMobile.req, req.azureMobile.res)
         }
         return definition
     }, {})
