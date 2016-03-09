@@ -1,4 +1,4 @@
-var compat = require('..'),
+var scaffold = require('../../scaffold'),
     expect = require('chai').use(require('chai-subset')).expect,
     rimraf = require('rimraf').sync,
     fs = require('fs'),
@@ -6,9 +6,9 @@ var compat = require('..'),
     inputPath = __dirname + '/files'
     outputPath = __dirname + '/output'
 
-describe('azure-mobile-apps.compatibility.integration', function () {
+describe('azure-mobile-apps.compatibility.scaffold.integration', function () {
     before(function () {
-        compat.scaffold(inputPath, outputPath)
+        scaffold(inputPath, outputPath)
     })
 
     after(function () {

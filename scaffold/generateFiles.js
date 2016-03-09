@@ -1,6 +1,6 @@
 var load = require('./load'),
     mapPermissions = require('./mapPermissions'),
-    templates = require('./templates')
+    templates = require('../templates')
 
 module.exports = function (template, path, route) {
     var items = load(path)

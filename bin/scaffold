@@ -1,0 +1,20 @@
+#!/usr/bin/env node
+if(process.argv.length < 4) {
+    usage()
+    return
+}
+
+var scaffold = require('..').scaffold,
+    path = require('path'),
+
+    inputPath = path.resolve(process.argv[2]),
+    outputPath = path.resolve(process.argv[3])
+
+console.log("Reading from " + inputPath)
+console.log("Writing to " + outputPath)
+
+scaffold(inputPath, outputPath)
+
+function usage() {
+    console.log("Usage: scaffold <inputPath> <outputPath>")
+}
