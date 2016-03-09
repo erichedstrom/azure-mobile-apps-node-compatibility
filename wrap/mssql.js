@@ -1,4 +1,4 @@
-var sql = require('msnodesqlv8'),
+var mssql = require('msnodesqlv8'),
     format = require('util').format
 
 module.exports = function (context) {
@@ -7,13 +7,13 @@ module.exports = function (context) {
 
     return {
         query: function (sql, params, options) {
-            sql.query(connectionString, sql, params, executeCallback(options))
+            mssql.query(connectionString, sql, params, executeCallback(options))
         },
         queryRaw: function (sql, params, options) {
-            sql.queryRaw(connectionString, sql, params, executeCallback(options))
+            mssql.queryRaw(connectionString, sql, params, executeCallback(options))
         },
         open: function (options) {
-            sql.query(connectionString, executeCallback(options))
+            mssql.query(connectionString, executeCallback(options))
         }
     }
 

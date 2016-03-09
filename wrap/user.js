@@ -19,10 +19,11 @@ module.exports = function (context) {
     return {
         getIdentities: function (options) {
             promise(context.user.getIdentities(), options, context.logger)
-
         },
         accessTokens: tokens,
         level: 'authenticated',
+
+        // to get old user id, see https://azure.microsoft.com/en-us/documentation/articles/app-service-mobile-net-upgrading-from-mobile-services/#authentication
         userId: context.user.id
     }
 }
