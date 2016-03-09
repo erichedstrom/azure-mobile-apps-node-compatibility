@@ -36,7 +36,7 @@ function apiWrapper(generatedHandler) {
 
     return Object.keys(methods).reduce(function (definition, method) {
         definition[method] = function (req, res, next) {
-            methods[method](apiRequest(req.azureMobile), req.azureMobile.res)
+            methods[method](apiRequest(req.azureMobile), res)
         }
         return definition
     }, {})
