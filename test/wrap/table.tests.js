@@ -9,7 +9,6 @@ describe('azure-mobile-apps.compatibility.wrap.table', function () {
                 push: {},
                 req: {},
                 res: {},
-                user: {},
                 query: {}
             },
             wrapped = wrap.read(function (tables, push, request, user) {
@@ -18,8 +17,8 @@ describe('azure-mobile-apps.compatibility.wrap.table', function () {
                     expect(tables).to.equal(context.tables)
                     expect(push).to.equal(context.push)
                     expect(request).to.equal(context.req)
-                    expect(user).to.equal(context.user)
                     expect(query).to.equal(context.query)
+                    expect(user.level).to.equal('anonymous')
                 }
             })
         wrapped(context)

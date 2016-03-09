@@ -1,4 +1,5 @@
-var queries = require('azure-mobile-apps/src/query')
+var promise = require('./promise'),
+    queries = require('azure-mobile-apps/src/query')
     _ = require('underscore')
 
 module.exports = function (context, table) {
@@ -6,30 +7,17 @@ module.exports = function (context, table) {
 
     return _.extend({
         read: function (options) {
-            depromisify(data.read(queries.create(table.name)), options)
+            promise(data.read(queries.create(table.name)), options, context.logger)
         },
         del: function (itemOrId, options) {
             var query = queries.create(table.name).where({ id: typeof itemOrId === 'object' ? itemOrId.id : itemOrId })
-            depromisify(data.delete(query), options)
+            promise(data.delete(query), options, context.logger)
         },
         insert: function (item, options) {
-            depromisify(data.insert(item), options)
+            promise(data.insert(item), options, context.logger)
         },
         update: function (item, options) {
-            depromisify(data.update(item), options)
+            promise(data.update(item), options, context.logger)
         }
     }, queries.create(table.name))
-
-    function depromisify(promise, callbacks) {
-        promise
-            .then(function (results) {
-                callbacks && callbacks.success && callbacks.success(results)
-            })
-            .catch(function (error) {
-                if(callbacks && callbacks.error)
-                    callbacks.error(error)
-                else
-                    context.logger.error(error)
-            })
-    }
 }
