@@ -17,8 +17,10 @@ describe('azure-mobile-apps.compatibility.scaffold.integration', function () {
 
     it("creates correct files", function () {
         expect(fs.readdirSync(outputPath)).to.deep.equal([
+            '.gitignore',
             'api',
             'app.js',
+            'package.json',
             'tables'
         ])
 
