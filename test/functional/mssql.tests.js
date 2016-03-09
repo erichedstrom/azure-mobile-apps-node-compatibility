@@ -15,7 +15,7 @@ describe('azure-mobile-apps.compatibility.functional.mssql', function () {
     })
 
     it("executes parameterised statements (requires configured database)", function () {
-        supertest(app)
+        return supertest(app)
             .get('/api/mssql')
             .expect(200)
             .then(function (results) {

@@ -6,10 +6,14 @@ module.exports = function (template, path, route) {
     var items = load(path)
 
     return Object.keys(items).reduce(function (files, itemName) {
-        var item = items[itemName]
+        try {
+            var item = items[itemName]
 
-        files[itemName + '.json'] = JSON.stringify(mapPermissions(item.permissions, route))
-        files[itemName + '.js'] = templates(template, item)
+            files[itemName + '.json'] = JSON.stringify(mapPermissions(item.permissions, route), null, 2)
+            files[itemName + '.js'] = templates(template, item)
+        } catch(ex) {
+            console.log("Failed to process item " + itemName + " from " + path)
+        }
 
         return files;
     }, {})

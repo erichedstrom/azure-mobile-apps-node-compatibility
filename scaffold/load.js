@@ -3,9 +3,15 @@ var fs = require('fs'),
 
 module.exports = function(sourcePath) {
     return fs.readdirSync(sourcePath).reduce(function (target, filename) {
-        if(fs.statSync(path.join(sourcePath, filename)).isFile())
+        if(isTargetFile())
             addContentToTarget(target, filename, fs.readFileSync(path.join(sourcePath, filename), 'utf8'))
         return target;
+
+        function isTargetFile() {
+            var ext = path.parse(filename).ext
+            return (ext === '.js' || ext === '.json') &&
+                fs.statSync(path.join(sourcePath, filename)).isFile()
+        }
     }, {})
 }
 
