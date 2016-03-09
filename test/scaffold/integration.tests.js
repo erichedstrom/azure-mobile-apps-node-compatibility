@@ -6,7 +6,7 @@ var scaffold = require('../../scaffold'),
     inputPath = __dirname + '/files'
     outputPath = __dirname + '/output'
 
-describe('azure-mobile-apps.compatibility.scaffold.integration', function () {
+describe('azure-mobile-apps-compatibility.scaffold.integration', function () {
     before(function () {
         scaffold(inputPath, outputPath)
     })

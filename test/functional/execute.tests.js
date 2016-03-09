@@ -3,7 +3,7 @@ var express = require('express'),
     supertest = require('supertest-as-promised'),
     expect = require('chai').use(require('chai-subset')).expect
 
-describe('azure-mobile-apps.compatibility.functional.execute', function () {
+describe('azure-mobile-apps-compatibility.functional.execute', function () {
     var app, mobileApp
 
     before(function () {

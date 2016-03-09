@@ -2,7 +2,7 @@ var express = require('express'),
     mobileApps = require('azure-mobile-apps'),
     supertest = require('supertest-as-promised')
 
-describe('azure-mobile-apps.compatibility.functional.respond', function () {
+describe('azure-mobile-apps-compatibility.functional.respond', function () {
     var app, mobileApp
 
     before(function () {

@@ -1,4 +1,4 @@
-var wrap = require('azure-mobile-apps.compatibility').wrap,
+var wrap = require('azure-mobile-apps-compatibility').wrap,
     table = require('azure-mobile-apps').table();
 
 <% Object.keys(operations).forEach(function (operationName) { %>
