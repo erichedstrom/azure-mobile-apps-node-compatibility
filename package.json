@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Scaffold an Azure Mobile App from an Azure Mobile Service.",
   "author": "Microsoft",
-  "repository": "Azure/azure-mobile-apps-node-compatibility",
+  "repository": "danderson00/azure-mobile-apps-node.compatibility",
   "license": "MIT",
   "bin": {
     "scaffold-mobile-app": "bin/scaffold-mobile-app"
