@@ -20,6 +20,7 @@ describe('azure-mobile-apps-compatibility.scaffold.integration', function () {
             '.gitignore',
             'api',
             'app.js',
+            'azureMobile.js',
             'package.json',
             'shared',
             'tables'
