@@ -4,7 +4,7 @@ if(process.argv.length < 4) {
     return
 }
 
-var scaffold = require('..').scaffold,
+var scaffold = require('../scaffold'),
     path = require('path'),
 
     inputPath = path.resolve(process.argv[2]),

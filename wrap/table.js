@@ -1,5 +1,5 @@
 var promise = require('./promise'),
-    queries = require('azure-mobile-apps/src/query')
+    queries = require('azure-mobile-apps/src/query'),
     _ = require('underscore')
 
 module.exports = function (context, table) {

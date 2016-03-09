@@ -8,9 +8,10 @@ module.exports = function(sourcePath) {
         return target;
 
         function isTargetFile() {
-            var ext = path.parse(filename).ext
-            return (ext === '.js' || ext === '.json') &&
-                fs.statSync(path.join(sourcePath, filename)).isFile()
+            var file = path.parse(filename)
+            return (file.ext === '.js' || file.ext === '.json')
+                && file.name !== '__fxutil'
+                && fs.statSync(path.join(sourcePath, filename)).isFile()
         }
     }, {})
 }
