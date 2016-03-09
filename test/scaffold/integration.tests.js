@@ -21,6 +21,7 @@ describe('azure-mobile-apps-compatibility.scaffold.integration', function () {
             'api',
             'app.js',
             'package.json',
+            'shared',
             'tables'
         ])
 
@@ -34,6 +35,10 @@ describe('azure-mobile-apps-compatibility.scaffold.integration', function () {
         expect(fs.readdirSync(outputPath + '/api')).to.deep.equal([
             'custom.js',
             'custom.json'
+        ])
+
+        expect(fs.readdirSync(outputPath + '/shared')).to.deep.equal([
+            'shared.js'
         ])
     });
 });
