@@ -30,7 +30,7 @@ reads the Azure Mobile Service definition from the `scripts` directory located
 in the current working directory and creates a directory called `out` with a
 scaffolded Mobile App.
 
-## Running locally
+## Running Locally
 
 To run the app locally, change to the output directory and install required
 node modules by executing:
