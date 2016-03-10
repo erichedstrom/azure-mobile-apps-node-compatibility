@@ -18,19 +18,24 @@ module.exports = function(sourcePath) {
 
 function addContentToTarget(target, filename, content) {
     var parsed = path.parse(filename),
-        itemName = itemName()
+        fileName = getFileName(),
+        itemName = fileName.toLowerCase()
 
     if(!target[itemName])
         target[itemName] = { operations: {} }
 
-    if(parsed.ext === '.json')
+    if(parsed.ext === '.json') {
+        // mobile services only preserves casing on the .json file
+        target[itemName].fileName = fileName,
         target[itemName].permissions = JSON.parse(content)
-    else
+    } else {
+        target[itemName].fileName = target[itemName].fileName || fileName,
         target[itemName].operations[operationName()] = content
+    }
 
-    function itemName() {
+    function getFileName() {
         var index = parsed.name.indexOf('.')
-        return (index === -1 ? parsed.name : parsed.name.substring(0, index)).toLowerCase()
+        return (index === -1 ? parsed.name : parsed.name.substring(0, index))
     }
 
     function operationName() {

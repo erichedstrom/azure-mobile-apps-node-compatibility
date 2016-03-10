@@ -9,8 +9,8 @@ module.exports = function (template, path, route) {
         try {
             var item = items[itemName]
 
-            files[itemName + '.json'] = JSON.stringify(mapPermissions(item.permissions, route), null, 2)
-            files[itemName + '.js'] = templates(template, item)
+            files[item.fileName + '.json'] = JSON.stringify(mapPermissions(item.permissions, route), null, 2)
+            files[item.fileName + '.js'] = templates(template, item)
         } catch(ex) {
             console.log("Failed to process item " + itemName + " from " + path)
         }
