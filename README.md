@@ -46,6 +46,19 @@ The server can be started by running:
 
 from the output directory. This starts the server on port 3000.
 
+## Obtaining Mobile Service Definitions
+
+Open the following URL in your browser:
+
+    https://<mobile_service_name>.scm.azure-mobile.net/DebugConsole
+
+Navigate by clicking on the directory names to the following location:
+
+    site/wwwroot/App_Data/config
+
+Download the `scripts` directory in ZIP format by clicking on the download
+icon next to the folder name.
+
 ## Troubleshooting
 
 ### Cannot find module 'xxx'
