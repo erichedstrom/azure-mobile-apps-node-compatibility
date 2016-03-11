@@ -6,6 +6,10 @@ module.exports = function (context) {
     return {
         mssql: mssql(context),
         push: push(context),
-        tables: tables(context)
+        tables: tables(context),
+        config: {
+            masterKey: 'masterKey',
+            applicationKey: 'applicationKey'
+        }
     }
 }

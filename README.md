@@ -71,3 +71,14 @@ any external modules, you will need to install them by executing:
 
 The `--save` option adds the dependency to the `package.json` file so it is
 also installed when deployed to Azure.
+
+### The table 'xxx' does not exist
+
+The getTable function is now case sensitive. Check to ensure the appropriate
+case is being used.
+
+### Invalid column name '__createdAt'
+
+The double underscore notation for createdAd, updatedAt, version and deleted
+columns have been removed. You will need to update any column references
+manually.
