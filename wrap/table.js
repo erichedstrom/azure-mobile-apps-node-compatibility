@@ -3,11 +3,12 @@ var promise = require('./promise'),
     _ = require('underscore')
 
 module.exports = function (context, table) {
-    var data = context.data(table)
+    var data = context.data(table),
+        query = queries.create(table.name)
 
     return _.extend({
         read: function (options) {
-            promise(data.read(queries.create(table.name)), options, context.logger)
+            promise(data.read(query), options, context.logger)
         },
         del: function (itemOrId, options) {
             var query = queries.create(table.name).where({ id: typeof itemOrId === 'object' ? itemOrId.id : itemOrId })
@@ -19,5 +20,5 @@ module.exports = function (context, table) {
         update: function (item, options) {
             promise(data.update(item), options, context.logger)
         }
-    }, queries.create(table.name))
+    }, query)
 }
