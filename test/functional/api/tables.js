@@ -10,9 +10,15 @@ module.exports = wrap.api(function (exports, statusCodes) {
     }
 
     exports.get = function(request, response) {
-        request.service.tables.getTable('api').where({ id: request.query.id }).read({
+        // ensure a new query is created each time table.where is called
+        var table = request.service.tables.getTable('api')
+        table.where({ id: 'non-existent' }).read({
             success: function (results) {
-                response.send(results)
+                table.where({ id: request.query.id }).read({
+                    success: function (results) {
+                        response.send(results)
+                    }
+                })
             }
         })
     }

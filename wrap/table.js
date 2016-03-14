@@ -1,14 +1,12 @@
 var promise = require('./promise'),
-    queries = require('azure-mobile-apps/src/query'),
-    _ = require('underscore')
+    queries = require('azure-mobile-apps/src/query')
 
 module.exports = function (context, table) {
-    var data = context.data(table),
-        query = queries.create(table.name)
+    var data = context.data(table)
 
-    return _.extend({
+    return attachOperators(table.name, {
         read: function (options) {
-            promise(data.read(query), options, context.logger)
+            promise(data.read(queries.create(table.name)), options, context.logger)
         },
         del: function (itemOrId, options) {
             var query = queries.create(table.name).where({ id: typeof itemOrId === 'object' ? itemOrId.id : itemOrId })
@@ -20,5 +18,22 @@ module.exports = function (context, table) {
         update: function (item, options) {
             promise(data.update(item), options, context.logger)
         }
-    }, query)
+    })
+
+    function attachOperators(name, table) {
+        ['where', 'select', 'orderBy', 'orderByDescending', 'skip', 'take', 'includeTotalCount'].forEach(attachOperator);
+
+        return table;
+
+        function attachOperator(operator) {
+            table[operator] = function () {
+                var query = queries.create(name)
+                query.read = function (options) {
+                    promise(data.read(query), options, context.logger)
+                }
+                query[operator].apply(query, arguments)
+                return query;
+            }
+        }
+    }
 }
