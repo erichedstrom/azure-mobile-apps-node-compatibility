@@ -36,4 +36,16 @@ describe('azure-mobile-apps-compatibility.functional.tables (requires configured
                 expect(results.body).to.containSubset([{ id: id }])
             })
     })
+
+    it("returns inserted object", function () {
+        var id = uuid()
+
+        return supertest(app)
+            .post('/tables/execute')
+            .send({ id: id })
+            .expect(201)
+            .then(function (results) {
+                expect(results.body).to.containSubset({ id: id })
+            })
+    })
 })
