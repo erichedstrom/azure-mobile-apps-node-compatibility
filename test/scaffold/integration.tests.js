@@ -3,7 +3,7 @@ var scaffold = require('../../scaffold'),
     rimraf = require('rimraf').sync,
     fs = require('fs'),
 
-    inputPath = __dirname + '/files'
+    inputPath = __dirname + '/files',
     outputPath = __dirname + '/output'
 
 describe('azure-mobile-apps-compatibility.scaffold.integration', function () {

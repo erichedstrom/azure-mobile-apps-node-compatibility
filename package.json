@@ -1,6 +1,6 @@
 {
   "name": "azure-mobile-apps-compatibility",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Scaffold an Azure Mobile App from an Azure Mobile Service",
   "author": "Microsoft",
   "repository": "danderson00/azure-mobile-apps-node.compatibility",

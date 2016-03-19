@@ -26,10 +26,10 @@ function addContentToTarget(target, filename, content) {
 
     if(parsed.ext === '.json') {
         // mobile services only preserves casing on the .json file
-        target[itemName].fileName = fileName,
+        target[itemName].fileName = fileName
         target[itemName].permissions = JSON.parse(content)
     } else {
-        target[itemName].fileName = target[itemName].fileName || fileName,
+        target[itemName].fileName = target[itemName].fileName || fileName
         target[itemName].operations[operationName()] = content
     }
 

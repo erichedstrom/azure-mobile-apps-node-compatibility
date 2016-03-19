@@ -2,31 +2,25 @@ var wrap = require('../../..').wrap,
     table = require('azure-mobile-apps').table();
 
 table.read(wrap.read(function (tables, push, request, user, statusCodes) {
-    return function read(query, user, request) {
+    return function(query, user, request) {
         request.execute()
     }
 }));
 
-table.insert(wrap.read(function (tables, push, request, user, statusCodes) {
-    return function read(item, user, request) {
+table.insert(wrap.insert(function (tables, push, request, user, statusCodes) {
+    return function(item, user, request) {
         request.execute()
     }
 }));
 
-table.update(wrap.read(function (tables, push, request, user, statusCodes) {
-    return function read(item, user, request) {
+table.update(wrap.update(function (tables, push, request, user, statusCodes) {
+    return function(item, user, request) {
         request.execute()
     }
 }));
 
-table.delete(wrap.read(function (tables, push, request, user, statusCodes) {
-    return function read(item, user, request) {
-        request.execute()
-    }
-}));
-
-table.undelete(wrap.read(function (tables, push, request, user, statusCodes) {
-    return function read(item, user, request) {
+table.delete(wrap.delete(function (tables, push, request, user, statusCodes) {
+    return function(item, user, request) {
         request.execute()
     }
 }));

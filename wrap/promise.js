@@ -7,7 +7,7 @@ module.exports = function(promise, callbacks, logger) {
         .catch(function (error) {
             if(callbacks && callbacks.error)
                 callbacks.error(error)
-            else
-                logger && logger.error(error)
+            else if(logger)
+                logger.error(error)
         })
 }

@@ -22,14 +22,14 @@ describe('azure-mobile-apps-compatibility.wrap.table', function () {
                 }
             })
         wrapped(context)
-        expect(innerExecuted).to.be.true;
+        expect(innerExecuted).to.equal(true)
     })
 
     it("wrapped function returns undefined if request.execute is not executed", function () {
         var wrapped = wrap.read(function (tables, push, request, user) {
             return function read(query, user, request) { }
         })
-        expect(wrapped({ req: {} })).to.be.undefined
+        expect(wrapped({ req: {} })).to.equal(undefined)
     })
 
     it("wrapped function returns promise if request.execute is executed", function () {

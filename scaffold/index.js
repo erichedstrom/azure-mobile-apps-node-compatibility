@@ -1,6 +1,5 @@
 var generateFiles = require('./generateFiles'),
     writer = require('./writer'),
-    templates = require('../templates'),
     static = require('../static'),
     path = require('path')
 
