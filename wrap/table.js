@@ -21,7 +21,7 @@ module.exports = function (context, table) {
     })
 
     function attachOperators(name, table) {
-        ['where', 'select', 'orderBy', 'orderByDescending', 'skip', 'take', 'includeTotalCount'].forEach(attachOperator);
+        ['where', 'select', 'orderBy', 'orderByDescending', 'skip', 'take', 'includeTotalCount'].forEach(attachOperator)
 
         return table;
 
@@ -32,7 +32,7 @@ module.exports = function (context, table) {
                     promise(data.read(query), options, context.logger)
                 }
                 query[operator].apply(query, arguments)
-                return query;
+                return query
             }
         }
     }

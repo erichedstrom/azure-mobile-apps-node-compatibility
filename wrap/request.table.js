@@ -22,7 +22,7 @@ module.exports = function (context) {
             response.status(200).end()
 
         if(arguments.length === 1)
-            response.status(500).json({ error: arguments[0].message })
+            response.status(500).json({ error: arguments[0].message || arguments[0] })
 
         response.status(arguments[0]).send(arguments[1])
     }

@@ -7,14 +7,14 @@ table.read(wrap.read(function (tables, push, request, user, statusCodes) {
     }
 }));
 
-table.insert(wrap.read(function (tables, push, request, user, statusCodes) {
-    return function read(item, user, request) {
+table.insert(wrap.insert(function (tables, push, request, user, statusCodes) {
+    return function insert(item, user, request) {
         request.respond(new Error("test"))
     }
 }));
 
-table.update(wrap.read(function (tables, push, request, user, statusCodes) {
-    return function read(item, user, request) {
+table.update(wrap.update(function (tables, push, request, user, statusCodes) {
+    return function update(item, user, request) {
         request.respond(statusCodes.SERVICE_UNAVAILABLE, "unavailable")
     }
 }));
