@@ -27,7 +27,8 @@ icon next to the folder name.
 ### Create Database Compatibility Views
 
 The scaffolded app includes a SQL script called `createViews.sql`. This script
-must be executed against the target database.
+must be executed against the target database. This script can also be obtained
+from https://raw.githubusercontent.com/Azure/azure-mobile-apps-node-compatibility/master/static/createViews.sql.
 
 ### Create Target Mobile App
 
@@ -124,3 +125,12 @@ express, allowed this behavior, but the current version does not.
 
 Use the generated stack trace to identify the offending module and change
 the code to ensure these functions are only called once.
+
+### Error in sideband demultiplexer
+
+This usually indicates a corrupt git repository. You can fix this by running:
+
+    git remote set-head origin master
+
+This assumes your remote repository uses the default name `origin` and the
+branch you are pushing to is called `master`.
