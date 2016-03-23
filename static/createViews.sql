@@ -6,14 +6,21 @@ DECLARE @schema nvarchar(255),@name nvarchar(255),@column nvarchar(255),@columnS
 DECLARE tableCursor CURSOR FORWARD_ONLY FOR
 SELECT TABLE_SCHEMA,TABLE_NAME
     FROM information_schema.columns
-    WHERE COLUMN_NAME IN ('__version', '__createdAt', '__updatedAt', '__deleted')
+    WHERE COLUMN_NAME IN ('__version', '__createdAt', '__updatedAt')
     GROUP BY TABLE_SCHEMA,TABLE_NAME
-    HAVING COUNT(*) = 4
+    HAVING COUNT(*) = 3
 OPEN tableCursor
 FETCH NEXT FROM tableCursor
     INTO @schema,@name
 WHILE @@FETCH_STATUS = 0
 BEGIN
+    /* Add __deleted column if it doesn't exist */
+    IF NOT EXISTS(SELECT * FROM information_schema.columns WHERE TABLE_SCHEMA = @schema AND TABLE_NAME = @name AND COLUMN_NAME = '__deleted')
+    BEGIN
+        SET @SQL = 'ALTER TABLE ' + @schema + '.' + @name + ' ADD __deleted bit'
+        EXEC (@SQL)
+    END
+
     /* Get comma separated list of non-system property columns */
     SET @columnSQL = NULL
     SELECT @columnSQL = COALESCE(@columnSQL + ',', '') + COLUMN_NAME
