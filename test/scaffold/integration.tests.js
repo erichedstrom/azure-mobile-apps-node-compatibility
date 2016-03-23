@@ -24,7 +24,8 @@ describe('azure-mobile-apps-compatibility.scaffold.integration', function () {
             'createViews.sql',
             'package.json',
             'shared',
-            'tables'
+            'tables',
+            'web.config'
         ])
 
         expect(fs.readdirSync(outputPath + '/tables')).to.deep.equal([

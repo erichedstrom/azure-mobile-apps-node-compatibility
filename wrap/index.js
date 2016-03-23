@@ -24,7 +24,7 @@ module.exports = {
 function tableWrapper(argumentFactory) {
     return function (generatedHandler) {
         return function (context) {
-            var userHandler = generatedHandler(context.tables, context.push, tableRequest(context), user(context), statusCodes),
+            var userHandler = generatedHandler(context.tables, context.push, tableRequest(context), user(context), statusCodes, context),
                 promise = promises.create(function (resolve, reject) {
                     context.setExecutePromise = function (promise) {
                         promise.then(resolve).catch(reject)
