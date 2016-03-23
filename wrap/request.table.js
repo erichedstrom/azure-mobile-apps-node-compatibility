@@ -3,7 +3,7 @@ module.exports = function (context) {
         response = context.res
 
     request.execute = function(options) {
-        context.executePromise = context.execute()
+        context.setExecutePromise(context.execute()
             .then(function (results) {
                 if(options && options.success)
                     options.success(results)
@@ -15,6 +15,7 @@ module.exports = function (context) {
                 else
                     throw error
             })
+        )
     }
 
     request.respond = function() {

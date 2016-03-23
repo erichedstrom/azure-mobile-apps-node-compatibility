@@ -21,6 +21,7 @@ describe('azure-mobile-apps-compatibility.scaffold.integration', function () {
             'api',
             'app.js',
             'azureMobile.js',
+            'createViews.sql',
             'package.json',
             'shared',
             'tables'

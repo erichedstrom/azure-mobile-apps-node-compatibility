@@ -2,7 +2,8 @@ var query = require('./query'),
     apiRequest = require('./request.api'),
     tableRequest = require('./request.table'),
     user = require('./user'),
-    statusCodes = require('./statusCodes')
+    statusCodes = require('./statusCodes'),
+    promises = require('azure-mobile-apps/src/utilities/promises')
 
 module.exports = {
     read: tableWrapper(function (context) {
@@ -23,9 +24,15 @@ module.exports = {
 function tableWrapper(argumentFactory) {
     return function (generatedHandler) {
         return function (context) {
-            var userHandler = generatedHandler(context.tables, context.push, tableRequest(context), user(context), statusCodes)
+            var userHandler = generatedHandler(context.tables, context.push, tableRequest(context), user(context), statusCodes),
+                promise = promises.create(function (resolve, reject) {
+                    context.setExecutePromise = function (promise) {
+                        promise.then(resolve).catch(reject)
+                    }
+                })
+
             userHandler.apply(null, argumentFactory(context))
-            return context.executePromise
+            return promise
         }
     }
 }
