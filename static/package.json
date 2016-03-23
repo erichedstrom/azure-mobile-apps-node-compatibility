@@ -7,5 +7,7 @@
         "azure-mobile-apps": "^2.0.1",
         "azure-mobile-apps-compatibility": "^0.0.1",
         "express": "^4.13.4"
-    }
+    },
+    "license": "UNLICENSED",
+    "private": true
 }
