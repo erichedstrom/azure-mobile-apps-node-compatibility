@@ -3,7 +3,10 @@ var wrap = require('../../..').wrap,
 
 table.read(wrap.read(function (tables, push, request, user, statusCodes) {
     return function(query, user, request) {
-        request.execute()
+        // ensure async works
+        setTimeout(function () {
+            request.execute()
+        })
     }
 }));
 
