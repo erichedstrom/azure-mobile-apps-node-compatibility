@@ -12,6 +12,26 @@ the latest version of Azure Mobile Apps.
 
 ##### This module is experimental.
 
+## Preparation
+
+### Obtain Mobile Service Definitions
+
+Open the following URL in your browser:
+
+    https://<mobile_service_name>.scm.azure-mobile.net/DebugConsole
+
+Navigate by clicking on the directory names to the following location:
+
+    site/wwwroot/App_Data/config
+
+Download the `scripts` directory in ZIP format by clicking on the download
+icon next to the folder name.
+
+### Create Database Compatibility Views
+
+The scaffolded app includes a SQL script called `createViews.sql`. This script
+must be executed against the target database.
+
 ## Usage
 
 To install, execute the following with elevated privileges:
@@ -46,19 +66,6 @@ The server can be started by running:
 
 from the output directory. This starts the server on port 3000.
 
-## Obtaining Mobile Service Definitions
-
-Open the following URL in your browser:
-
-    https://<mobile_service_name>.scm.azure-mobile.net/DebugConsole
-
-Navigate by clicking on the directory names to the following location:
-
-    site/wwwroot/App_Data/config
-
-Download the `scripts` directory in ZIP format by clicking on the download
-icon next to the folder name.
-
 ## Troubleshooting
 
 ### Cannot find module 'xxx'
@@ -79,6 +86,6 @@ case is being used.
 
 ### Invalid column name '__createdAt'
 
-The double underscore notation for createdAd, updatedAt, version and deleted
+The double underscore notation for createdAt, updatedAt, version and deleted
 columns have been removed. You will need to update any column references
 manually.
