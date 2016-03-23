@@ -18,6 +18,7 @@
     "underscore": "^1.8.3"
   },
   "devDependencies": {
+    "azure": "^0.6.9-zumo",
     "azure-mobile-apps": "^2.0.0",
     "chai": "^3.5.0",
     "chai-subset": "^1.2.0",
