@@ -7,9 +7,6 @@ The generated app is ready to deploy to an Azure Mobile App and should work
 for simple applications. More complex applications, particularly those using
 authentication, will likely require some code changes.
 
-It is important to note that client applications will also require updating to
-the latest version of Azure Mobile Apps.
-
 ##### This module is experimental.
 
 ## Preparation
@@ -31,6 +28,21 @@ icon next to the folder name.
 
 The scaffolded app includes a SQL script called `createViews.sql`. This script
 must be executed against the target database.
+
+### Create Target Mobile App
+
+Create a new Mobile App using the Azure portal and perform the following tasks:
+
+* configure a data connection that points to the Mobile Service database
+* copy any custom application settings from the Mobile Service to the Mobile App
+
+If you previously used one of the built in authentication providers, there are
+additional steps that you must take. See http://url/ for more information.
+
+### Update Client
+
+The client application must be updated to use the latest version of the Azure
+Mobile Apps SDK.
 
 ## Usage
 
@@ -58,9 +70,9 @@ node modules by executing:
     npm i
 
 You must also edit the `azureMobile.js` file and provide appropriate data
-connection information.
+connection and notification hub information.
 
-The server can be started by running:
+The server can then be started by running:
 
     node --debug app.js
 
@@ -70,11 +82,15 @@ from the output directory. This starts the server on port 3000.
 
 ### Cannot find module 'xxx'
 
-Dependencies on external modules such as `azure` and `async` have not been
-included by default to reduce the size of the application. If you are using
-any external modules, you will need to install them by executing:
+Dependencies on external modules such as `async` have not been included by
+default to reduce the size of the application. If you are using any external
+modules, you will need to install them by executing:
 
-    npm i <module_name> --save
+    npm i <module_name>@<version> --save
+
+The `@<version>` parameter is optional. However, it is highly recommended to
+install the same package versions that were used in your Mobile Service to
+ensure compatibility.
 
 The `--save` option adds the dependency to the `package.json` file so it is
 also installed when deployed to Azure.
@@ -87,5 +103,23 @@ case is being used.
 ### Invalid column name '__createdAt'
 
 The double underscore notation for createdAt, updatedAt, version and deleted
-columns have been removed. You will need to update any column references
-manually.
+columns have been removed. You will need to update any explicit column
+references manually.
+
+### process.env
+
+If you are accessing any application settings that have been set in the portal
+using process.env, they will not be configured for local debugging. These can be
+set directly from the `azureMobile.js` file.
+
+For applications deployed to Azure, ensure application settings have been copied
+from the Mobile Service to the Mobile App.
+
+### Can't set headers after they are sent
+
+Calling request.respond or response.send more than once per request will result
+in this error. Older versions of the web framework used by Mobile Services,
+express, allowed this behavior, but the current version does not.
+
+Use the generated stack trace to identify the offending module and change
+the code to ensure these functions are only called once.
