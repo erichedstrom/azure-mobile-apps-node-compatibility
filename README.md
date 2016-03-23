@@ -34,6 +34,7 @@ must be executed against the target database.
 Create a new Mobile App using the Azure portal and perform the following tasks:
 
 * configure a data connection that points to the Mobile Service database
+* configure push settings to use the same configuration as the Mobile Service
 * copy any custom application settings from the Mobile Service to the Mobile App
 
 If you previously used one of the built in authentication providers, there are
