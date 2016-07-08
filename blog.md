@@ -47,39 +47,19 @@ Navigate by clicking on the directory names to the following location:
 Download the `scripts` directory in ZIP format by clicking on the download
 icon next to the folder name.
 
-### Create Database Compatibility Views
-
-The scaffolded app includes a SQL script called `createViews.sql`. This script
-must be executed against the target database. This script creates read / write
-views in the dbo database schema that map older reserved column names to
-new column names.
-
-This script can also be obtained from https://raw.githubusercontent.com/Azure/azure-mobile-apps-node-compatibility/master/static/createViews.sql.
-
-### Create Target Mobile App
-
-Create a new Mobile App using the Azure portal and perform the following tasks:
-
-* Take note of the URL for your Mobile App. You will need it later.
-* Configure a data connection that points to the Mobile Service database.
-* Configure push settings to use the same configuration as the Mobile Service.
-
-If you previously used one of the built in authentication providers, there are
-additional steps that you must take. Click 
-[here](https://azure.microsoft.com/en-us/documentation/articles/app-service-mobile-net-upgrading-from-mobile-services/#authentication) 
-for more information.
-
 ### Update Client
 
 The client application must be updated to use the latest version of the Azure
 Mobile Apps SDK. In many cases, this will simply be a matter of updating the
-Azure Mobile Apps libraries. However, in some cases, code changes may be
-required.
+Azure Mobile Apps libraries (keep in mind the names of the Nuget packages for
+Mobile Apps have changed from WindowsAzure.MobileServices to 
+Microsoft.Azure.Mobile.Client). However, in some cases, additional code changes 
+may be required.
 
 You also need to update the URL that is passed to the constructor of the
 Mobile App client object to the URL of the mobile app you created above.
 
-## Creating the Mobile App
+### Creating the Mobile App
 
 First, install the compatibility package by executing the following with
 elevated privileges:
@@ -104,6 +84,30 @@ contains files for the tables and custom APIs you defined in your mobile service
 Your app is ready to deploy!
 
 ## Deploying and Testing
+
+### Create Database Compatibility Views
+
+The scaffolded app includes a SQL script called `createViews.sql`. This script
+must be executed against the target database. This script creates read / write
+views in the dbo database schema that map older reserved column names to
+new column names.
+
+This script can also be obtained from https://raw.githubusercontent.com/Azure/azure-mobile-apps-node-compatibility/master/static/createViews.sql.
+
+### Create Target Mobile App
+
+Create a new Mobile App using the Azure portal and perform the following tasks:
+
+* Take note of the URL for your Mobile App. You will need it later.
+* Configure a data connection that points to the Mobile Service database.
+* Configure push settings to use the same configuration as the Mobile Service.
+
+If you previously used one of the built in authentication providers, there are
+additional steps that you must take. Read 
+[this](https://azure.microsoft.com/en-us/documentation/articles/app-service-mobile-net-upgrading-from-mobile-services/#authentication) 
+article for more information.
+
+### Deploying
 
 The simplest way to get your app onto Azure is using FTP. The URL, username
 and password can be obtained from the portal. Before copying the files, you must
@@ -185,11 +189,10 @@ branch you are pushing to is called `master`.
 ## Caveats
 
 There are a couple of areas that require additional changes. For example,
-if you are using Mobile Services authentication against an identity provider
-like facebook or google, you will need to configure App Service authentication
-and update redirect URLs on the identity provider portal. Click 
-[here](https://azure.microsoft.com/en-us/documentation/articles/app-service-mobile-net-upgrading-from-mobile-services/#authentication) 
-for more information. Custom authentication (i.e. not using an identity 
+if you are using Mobile Services authentication, you need to update redirect URLs
+on your identity provider as they have changed. Read 
+[this](https://azure.microsoft.com/en-us/documentation/articles/app-service-mobile-net-upgrading-from-mobile-services/#authentication) 
+article for more information. Custom authentication (i.e. not using an identity 
 provider such as facebook) should not be affected and should continue to work.
 
 ### Other issues
