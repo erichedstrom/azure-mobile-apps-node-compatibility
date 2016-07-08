@@ -10,7 +10,7 @@ The Azure Mobile Apps compatibility package allows you to convert older Azure
 Mobile Services applications written for the Node platform so that they can 
 utilize the latest Azure Mobile Apps Node SDK.
 
-## How does it work?
+## How Does it Work?
 
 The package takes the raw source code from a Node-based Azure Mobile Service 
 and generates the equivalent set of table and custom API definitions that will 
@@ -28,11 +28,15 @@ or code changes in addition to the conversion.
 
 Because the conversion produces a new site, there is a natural process to the
 conversion.  Follow the process given below.  If you run into problems, please
-get live help - we listen in on Stack Overflow, the Azure Forums and have a 
-Gitter channel for live assistance.
+get live help - we listen in on 
+[Stack Overflow](http://stackoverflow.com/questions/tagged/azure-mobile-services?sort=newest&pageSize=20), 
+the [MSDN Forums](https://social.msdn.microsoft.com/forums/azure/en-US/home?forum=azuremobile) and have a 
+[Gitter channel](https://gitter.im/Azure/azure-mobile-apps-node) for live assistance.
 
 Note that this process cannot be attempted until AFTER you have migrated the
-site from Azure Mobile Services to Azure App Service.
+site from Azure Mobile Services to Azure App Service. This is performed by
+clicking the "Migrate to App Service" button at the bottom of the screen
+in the old Azure portal (https://manage.windowsazure.com/).
 
 ### Obtain your Azure Mobile Services Scripts
 
@@ -81,16 +85,20 @@ scaffolded Mobile App.
 Once the app has been created, check the target folder to make sure it
 contains files for the tables and custom APIs you defined in your mobile service.
 
-Your app is ready to deploy!
+Your app is almost ready to deploy!
 
 ## Deploying and Testing
 
 ### Create Database Compatibility Views
 
 The scaffolded app includes a SQL script called `createViews.sql`. This script
-must be executed against the target database. This script creates read / write
-views in the dbo database schema that map older reserved column names to
-new column names.
+must be executed against the target database. The connection string for the
+target database can be obtained from your Mobile Service or migrated Mobile App
+from the Settings (or Configure) page under the Connection String section.
+The connection string name is MS_TableConnectionString. 
+
+This script creates read / write views in the dbo database schema that map older 
+reserved column names to new column names.
 
 This script can also be obtained from https://raw.githubusercontent.com/Azure/azure-mobile-apps-node-compatibility/master/static/createViews.sql.
 
