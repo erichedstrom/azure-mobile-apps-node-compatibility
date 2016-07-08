@@ -120,7 +120,7 @@ article for more information.
 The simplest way to get your app onto Azure is using FTP. The URL, username
 and password can be obtained from the portal. Before copying the files, you must
 run `npm install` in a console window from the output folder created above. Copy
-the entire contents to the site/wwwroot folder of the FTP host.
+the entire contents of the output folder to the site/wwwroot folder of the FTP host.
 
 If you are familiar with git, we recommend you follow the steps
 [here](https://azure.microsoft.com/en-us/documentation/articles/web-sites-publish-source-control/)
