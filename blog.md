@@ -1,41 +1,44 @@
 # Azure Mobile Apps Compatibility Package
 
-The Azure Mobile Apps compatibility package allows you to run older Azure
-Mobile Services applications on the newer Mobile Apps platform.
+We recently announced that Azure Mobile Services will be deprecated and all
+services will be migrated to Azure App Service.  At this point, you will 
+become responsible for the code running your app.  You may want to upgrade
+your site to take advantage of the additional facilities that Azure App 
+Service provides you.
 
-It's important to note that this package is experimental. We need your help
-to make the experience as seamless as possible. Join the conversation on
-[gitter](https://gitter.im/Azure/azure-mobile-apps-node) and let us know
-about your experiences.
+The Azure Mobile Apps compatibility package allows you to convert older Azure
+Mobile Services applications written for the Node platform so that they can 
+utilize the latest Azure Mobile Apps Node SDK.
 
 ## How does it work?
 
-The package takes the raw files from an Azure Mobile Service and generates a
-set of table and custom API definitions that will work with Azure Mobile Apps.
-Both platforms offer a similar set of functionality with different APIs. The
-compatibility package maps the Mobile Services API to the newer Mobile Apps API.
+The package takes the raw source code from a Node-based Azure Mobile Service 
+and generates the equivalent set of table and custom API definitions that will 
+work with the Azure Mobile Apps Node SDK.  You will have a new project at the 
+end that you can deploy as a new site to Azure App Service.  Both platforms 
+offer a similar set of functionality with different APIs. The compatibility 
+package maps the Mobile Services API to the newer Mobile Apps API.
 
-The generated app is ready to deploy to an Azure Mobile App and should work
-for most applications. More complex applications, particularly those using
-authentication, will likely require some code changes.
+The generated app is ready to deploy to an Azure App Service and should work
+for most applications. It's important to review the code afterwards as some
+common scenarios (such as authentication) will require specific configuration
+or code changes in addition to the conversion.
 
-## Caveats
+## Performing a Conversion
 
-There are a couple of areas that require additional changes. For example,
-if you are using Mobile Services authentication against an identity provider
-like facebook or google, you will need to configure App Service authentication
-and update redirect URLs on the identity provider portal. Click 
-[here](https://azure.microsoft.com/en-us/documentation/articles/app-service-mobile-net-upgrading-from-mobile-services/#authentication) 
-for more information. Custom authentication (i.e. not using an identity 
-provider such as facebook) should not be affected and should continue to work.
+Because the conversion produces a new site, there is a natural process to the
+conversion.  Follow the process given below.  If you run into problems, please
+get live help - we listen in on Stack Overflow, the Azure Forums and have a 
+Gitter channel for live assistance.
 
-## Preparation
+Note that this process cannot be attempted until AFTER you have migrated the
+site from Azure Mobile Services to Azure App Service.
 
-### Obtain Mobile Service Definitions
+### Obtain your Azure Mobile Services Scripts
 
 Open the following URL in your browser:
 
-    https://<mobile_service_name>.scm.azure-mobile.net/DebugConsole
+    https://_mobile_service_name_.scm.azure-mobile.net/DebugConsole
 
 Navigate by clicking on the directory names to the following location:
 
@@ -179,7 +182,23 @@ This usually indicates a corrupt git repository. You can fix this by running:
 This assumes your remote repository uses the default name `origin` and the
 branch you are pushing to is called `master`.
 
+## Caveats
+
+There are a couple of areas that require additional changes. For example,
+if you are using Mobile Services authentication against an identity provider
+like facebook or google, you will need to configure App Service authentication
+and update redirect URLs on the identity provider portal. Click 
+[here](https://azure.microsoft.com/en-us/documentation/articles/app-service-mobile-net-upgrading-from-mobile-services/#authentication) 
+for more information. Custom authentication (i.e. not using an identity 
+provider such as facebook) should not be affected and should continue to work.
+
 ### Other issues
 
 Our [github repository](https://github.com/Azure/azure-mobile-apps-node-compatibility)
 will be updated with new troubleshooting steps as common cases are uncovered.
+
+It's important to note that this package is experimental. We need your help
+to make the experience as seamless as possible. Join the conversation on
+[gitter](https://gitter.im/Azure/azure-mobile-apps-node) and let us know
+about your experiences.
+
