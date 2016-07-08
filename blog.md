@@ -3,17 +3,20 @@
 The Azure Mobile Apps compatibility package allows you to run older Azure
 Mobile Services applications on the newer Mobile Apps platform.
 
-##### This module is experimental.
+It's important to note that this package is experimental. We need your help
+to make the experience as seamless as possible. Join the conversation on
+[gitter](https://gitter.im/Azure/azure-mobile-apps-node) and let us know
+about your experiences.
 
 ## How does it work?
 
-The package generates a set of scaffolded table and custom API definitions
-from an Azure Mobile Service. Azure Mobile Services and Mobile Apps both offer
-a similar set of functionality with different APIs. The compatibility package
-maps the Mobile Services API to the newer Mobile Apps API.
+The package takes the raw files from an Azure Mobile Service and generates a
+set of table and custom API definitions that will work with Azure Mobile Apps.
+Both platforms offer a similar set of functionality with different APIs. The
+compatibility package maps the Mobile Services API to the newer Mobile Apps API.
 
 The generated app is ready to deploy to an Azure Mobile App and should work
-for simple applications. More complex applications, particularly those using
+for most applications. More complex applications, particularly those using
 authentication, will likely require some code changes.
 
 ## Caveats
@@ -21,9 +24,10 @@ authentication, will likely require some code changes.
 There are a couple of areas that require additional changes. For example,
 if you are using Mobile Services authentication against an identity provider
 like facebook or google, you will need to configure App Service authentication
-and update redirect URLs on the identity provider portal. Click [here](https://azure.microsoft.com/en-us/documentation/articles/app-service-mobile-net-upgrading-from-mobile-services/#authentication) for more information. Custom authentication
-(i.e. not using an identity provider such as facebook) should not be affected
-and should continue to work.
+and update redirect URLs on the identity provider portal. Click 
+[here](https://azure.microsoft.com/en-us/documentation/articles/app-service-mobile-net-upgrading-from-mobile-services/#authentication) 
+for more information. Custom authentication (i.e. not using an identity 
+provider such as facebook) should not be affected and should continue to work.
 
 ## Preparation
 
@@ -53,21 +57,29 @@ This script can also be obtained from https://raw.githubusercontent.com/Azure/az
 
 Create a new Mobile App using the Azure portal and perform the following tasks:
 
-* configure a data connection that points to the Mobile Service database
-* configure push settings to use the same configuration as the Mobile Service
-* copy any custom application settings from the Mobile Service to the Mobile App
+* Take note of the URL for your Mobile App. You will need it later.
+* Configure a data connection that points to the Mobile Service database.
+* Configure push settings to use the same configuration as the Mobile Service.
 
 If you previously used one of the built in authentication providers, there are
-additional steps that you must take. Click [here](https://azure.microsoft.com/en-us/documentation/articles/app-service-mobile-net-upgrading-from-mobile-services/#authentication) for more information.
+additional steps that you must take. Click 
+[here](https://azure.microsoft.com/en-us/documentation/articles/app-service-mobile-net-upgrading-from-mobile-services/#authentication) 
+for more information.
 
 ### Update Client
 
 The client application must be updated to use the latest version of the Azure
-Mobile Apps SDK.
+Mobile Apps SDK. In many cases, this will simply be a matter of updating the
+Azure Mobile Apps libraries. However, in some cases, code changes may be
+required.
 
-## Usage
+You also need to update the URL that is passed to the constructor of the
+Mobile App client object to the URL of the mobile app you created above.
 
-To install, execute the following with elevated privileges:
+## Creating the Mobile App
+
+First, install the compatibility package by executing the following with
+elevated privileges:
 
     npm i -g azure-mobile-apps-compatibility
 
@@ -83,38 +95,51 @@ reads the Azure Mobile Service definition from the `scripts` directory located
 in the current working directory and creates a directory called `out` with a
 scaffolded Mobile App.
 
-## Running Locally
+Once the app has been created, check the target folder to make sure it
+contains files for the tables and custom APIs you defined in your mobile service.
 
-To run the app locally, change to the output directory and install required
-node modules by executing:
+Your app is ready to deploy!
 
-    npm i
+## Deploying and Testing
 
-You must also edit the `azureMobile.js` file and provide appropriate data
-connection and notification hub information.
+The simplest way to get your app onto Azure is using FTP. The URL, username
+and password can be obtained from the portal. Before copying the files, you must
+run `npm install` in a console window from the output folder created above. Copy
+the entire contents to the site/wwwroot folder of the FTP host.
 
-The server can then be started by running:
+If you are familiar with git, we recommend you follow the steps
+[here](https://azure.microsoft.com/en-us/documentation/articles/web-sites-publish-source-control/)
+up to the end of the Deploy your project section.
 
-    node --debug app.js
-
-from the output directory. This starts the server on port 3000.
+After you have deployed your app, open your browser and navigate to the URL
+of your Mobile App. You should see the home page for your app. You can now
+run and test your updated client. Additionally, the Easy Tables and Easy API
+sections for your app in the portal should now be functional.
 
 ## Troubleshooting
+
+To determine next steps, enable streaming logs for your app by opening the
+portal to the settings of your app, opening the Diagnostics Logs section and
+turning on Application Logging (Filesystem). Then open Log Stream from the Tools
+section of your app.
+
+Sometimes, it is necessary to view the startup logs. To do this, click the
+Restart button from the toolbar, open the Log Stream and then open the app URL
+in a browser. Any errors that occur during startup should appear.
 
 ### Cannot find module 'xxx'
 
 Dependencies on external modules such as `async` have not been included by
 default to reduce the size of the application. If you are using any external
-modules, you will need to install them by executing:
+modules, you will need to install them by opening a browser to
+`https://<mobile_service_name>.scm.azure-mobile.net/DebugConsole`, navigating
+to the site/wwwroot folder and executing:
 
-    npm i <module_name>@<version> --save
+    npm i <module_name>@<version>
 
 The `@<version>` parameter is optional. However, it is highly recommended to
 install the same package versions that were used in your Mobile Service to
 ensure compatibility.
-
-The `--save` option adds the dependency to the `package.json` file so it is
-also installed when deployed to Azure.
 
 ### The table 'xxx' does not exist
 
