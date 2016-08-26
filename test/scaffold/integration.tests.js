@@ -41,7 +41,8 @@ describe('azure-mobile-apps-compatibility.scaffold.integration', function () {
         ])
 
         expect(fs.readdirSync(outputPath + '/shared')).to.deep.equal([
-            'shared.js'
+            'shared.js',
+            'subfolder'
         ])
     });
 });
