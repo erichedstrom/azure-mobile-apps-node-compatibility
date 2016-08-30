@@ -31,8 +31,8 @@ describe('azure-mobile-apps-compatibility.scaffold.integration', function () {
         expect(fs.readdirSync(outputPath + '/tables')).to.deep.equal([
             'friends.js',
             'friends.json',
-            'Messages.js',
-            'Messages.json'
+            'messages.js',
+            'messages.json'
         ])
 
         expect(fs.readdirSync(outputPath + '/api')).to.deep.equal([
